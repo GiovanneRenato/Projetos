@@ -1,0 +1,246 @@
+#============================================================
+# Esse é um projeto que eu iniciei depois de algumas aulas de python na faculdade, ate o momento eu tinha aprendido sobre listas e mais umas coisinhas, a partir dai eu imaginei que seria possivel replicar parcialmente ou totalmente o jogo "Termo"
+# Deixei documentado todos os estagios do jogo, somando o tempo de cada "versão", eu finalizei tudo em mais ou menos 10 horas ao longo da semana
+#============================================================
+# Essa primeira versão, eu tentei fazer o jogo com base em uma lista, e ia atualizando ela com base nos acertos das palavras
+# Mas ela era bem limitada pela forma que foi feita, levei em torno de 1h para fazer ele mas n consegui melhora-lo
+# meu código 'termo1'
+palavra = "manga"
+palavra2=[]
+loop = 1
+c = ['_', '_', '_', '_', '_']
+# Basicamente ela tem um loop para rodar o jogo, com o "x = input" o jogador chuta uma palavra, caso no chute e na palavra certa (variavel: manga), entao a letra ficaria maiuscula naquela posição
+# Mas não era assim que eu queria, ja que no jogo original a letra fica destacada em verde quando na posição correta e amarela com a letra na posição errada
+# Eu pensei em deixar a letra maiuscula quando no local certo e minuscula no local errado, mas como eu ja disse acima, esse codigo estava bem limitado
+while loop == 1:
+  x = input('digite uma palavra de 5 letras minusculas: ')
+  a = [x]
+  b = ['manga']
+  if 'm' in x:
+    c.pop(0)
+    c.insert(0, 'M')
+    print(c)
+  if 'a' in x:
+    c.pop(1)
+    c.insert(1, 'A')
+    c.pop()
+    c.append('A')
+    print(c)
+  if 'n' in x:
+    c.pop(2)
+    c.insert(2, 'N')
+    print(c)
+  if 'g' in x:
+    c.pop(3)
+    c.insert(3, 'G')
+    print(c)
+  if a == b:
+    print('ACERTOU!!! A PALAVRA ERA ', b)
+    loop=0
+    else:
+        print(c)
+# ============================================================
+# Na terça seguinte, eu tive aula de python na faculdade novamente, então eu mostrei esse meu projeto para o meu professo
+# Ele revisou o codigo e gostou da forma que eu pensei para fazer, mas apenas com os comando que eu usei o codigo n ia para frente
+# Então ele fez esse rascunho e depois mais um outro (bloco seguinte) para me dar uma direção
+# rascunho do prof
+for i in palavra:
+  palavra2.append(i)
+print (palavra2)
+print(palavra[0])
+def testa_maiuscula(letra):
+  maiusculas = ['A', 'B', 'C', 'D']
+  for l in maiusculas:
+    if letra == l:
+      print("tem a letra", letra, " maiuscula")
+testa_maiuscula('a')
+# Mas o problema desse rascunho que ele me passou, é que eu não havia aprendido função ate o momento, então eu decidi não usar
+#==============================================================
+# Esse é o codigo incompleto do meu professor, ele fez em alguns minutos após a aula, com isso eu consegui me basear para fazer a ultima versão do meu codigo
+# codigo do prof
+palavra_certa = 'manga'
+palavra_vazia = ['_', '_', '_', '_', '_']  # criar um for para povoar esta lista de modo a aceitar qualquer tamanho de palavra_certa
+tentativas = 7
+print(palavra_vazia)
+while tentativas > 0:
+  chute = input("digite uma palavra: ")
+  # colocar aqui um teste se o chute tem exatamente 5 letras
+  if len(chute) != len(palavra_certa):
+    print("deve ter ", len(palavra_certa), " letras")
+  else:
+    tem_a_letra = False
+    esta_no_lugar_certo = False
+    qual_letra_tem = ''
+    for letra in chute:
+      if letra in palavra_certa:
+        tem_a_letra = True
+        qual_letra_tem = letra
+    if tem_a_letra:
+      for i in range(len(palavra_certa)):
+        if chute[i] == palavra_certa[i]:
+          palavra_vazia[i] = chute[i]
+          esta_no_lugar_certo = True
+    print(palavra_vazia)
+    if not esta_no_lugar_certo:
+      print("tem a letra ", qual_letra_tem)
+
+#==================================================================
+# codigo 'termo2'
+# Nesse eu tentei refazer o codigo do zero sem usar listas, mas não consegui levar para frente
+      loop=5
+while loop > 0:
+    a1= 'm'
+    a2= 'a'
+    a3= 'n'
+    a4= 'g'
+    a5= 'a'
+    r=[a1,a2,a3,a4,a5]
+    p = input("digite uma palavra ")
+    p2=[]
+    pl = [p]
+    for i in p:
+        p2.append(i)
+        if p2 != r:
+            print('errou')
+        else:
+            print ('acertou, a palavra era:',a1+a2+a3+a4+a5)
+            loop=0
+
+#==================================================================
+# Nessa versão, eu achei q realmente iria conseguir, mas não sabia oque faltava
+# Os erros nele eram basicamente: a palavra com letra maiuscula estava sendo substituida por letras minusculas e em alguns casos as letras minusculas não apareciam corretamente
+# codigo 'termo3'
+# (ta quase perfeito)
+palavra_certa = 'manga'
+palavra_certa_maiuscula= palavra_certa.upper()
+palavra_vazia = ['_', '_', '_', '_', '_']
+palavra_vazia_2 = '_'
+tentativas = 7
+while tentativas > 0:
+    print('vc tem',tentativas,'tentativas')
+    chute = input("digite uma palavra: ")
+    if len(chute) != len(palavra_certa):
+        print("deve ter ", len(palavra_certa), " letras")
+    else:
+        for x in range(len(palavra_certa)):
+            if chute[x] in palavra_certa and chute[x] not in palavra_certa_maiuscula[x]:
+                palavra_vazia[x] = chute[x]
+            if chute[x] not in palavra_certa and chute[x] in palavra_certa_maiuscula[x]:
+                palavra_vazia[x] = palavra_vazia_2
+            if chute[x] in palavra_certa[x]:
+                palavra_vazia[x] = palavra_certa_maiuscula[x]
+        if chute == palavra_certa:
+                tentativas = -10
+    tentativas = tentativas -1
+    print(palavra_vazia)
+    if tentativas == 0:
+        print('perdeu')
+
+#==================================
+# e a partir daqui, foi onde eu não encontrei erros no jogo, mas ainda tem algumas melhoras que eu posso fazer no codigo, então a partir daqui eu basicamente faço pequenas alterações no codigo, para ele ficar "melhor"
+# O problema que eu tinha em substituir as letras na versão anterior, foi basicamente a unica coisa que eu mudei para chegar nessa versão
+# Usei uma logica de ao inves de so colocar as letras minusculas nas posições erradas, colocar o chute todo nos espaços vazios e ir tirando de acordo com o necessario
+# Sei que ficou bizarramente confuso de ler o codigo, ja que não usei função ate o momento, mas foi o melhor resultado que eu consegui alcançar
+# codigo 'termo4'
+# (não encontrei erros ate o momento)
+# ***** metas *****
+# *criar palavras aleatorias na var palavra_certa
+palavra_certa = 'manga'
+palavra_certa_maiuscula = palavra_certa.upper()
+palavra_vazia = ['_', '_', '_', '_', '_']
+palavra_vazia_2 = '_'
+tentativas = 7
+while tentativas > 0:
+  print('vc tem', tentativas, 'tentativas')
+  chute = input("digite uma palavra: ")
+  if len(chute) != len(palavra_certa):
+    print("deve ter ", len(palavra_certa), " letras")
+    continue
+  else:
+    for x in range(len(palavra_certa)):
+      
+      if palavra_vazia[x] != palavra_certa_maiuscula[x] and chute[x] not in palavra_certa[x]:
+        print(palavra_vazia, '1')
+        palavra_vazia[x] = palavra_vazia_2
+        print(palavra_vazia, ' 2')
+      
+      if chute[x] in palavra_certa and palavra_vazia[x] not in palavra_certa_maiuscula[x]:
+        print(palavra_vazia,'  3')
+        palavra_vazia[x] = chute[x]
+        print(palavra_vazia,'   4')
+        
+      if chute[x] in palavra_certa[x] or palavra_vazia[x] in palavra_certa[x]:
+        print(palavra_vazia, '    5')
+        palavra_vazia[x] = palavra_certa_maiuscula[x]
+        print(palavra_vazia, '     6')
+
+    if chute == palavra_certa:
+      tentativas = -10
+  tentativas = tentativas - 1
+  print(palavra_vazia, 'jogo')
+  if tentativas == 0:
+    print('perdeu')
+
+#==================================
+# E essa é a minha versão final ate o momento, minhas mudanças planejadas são resolver os "problemas" e "metas" abaixo
+# codigo 'UniTermo4.1'
+# *** "problemas" ***
+# ['a', 'A', 'a', 'a', 'A'] reconhecer que so tem 2 "A" na palavra
+# *** metas ***
+# *criar palavras aleatorias na var palavra_certa, acredito que usando uma biblioteca
+
+# ***Deixei algumas anotaçoes em cada bloco explicando melhor o codigo todo agora que ele esta funcionando***
+
+# Variaveis e "tutorial"
+palavra_certa = 'tema'
+palavra_certa_maiuscula = palavra_certa.upper()
+palavra_vazia = ['_'] * len(palavra_certa)
+palavra_vazia_2 = '_'
+tentativas = 6
+print('UNITERMO.4.1')
+print(
+  'Bem vindo ao jogo, as regras são: descobrir a palavra certa em 6 tentativas, depois de cada chute, você vai ver em uma lista mostrando se esta perto da palavra.'
+)
+print('Lista em branco, não tem nenhuma letra certa. ex:_ _ _ _ _')
+print(
+  'Lista com minuscula, tem pelomenos uma letra na palavra, mas em outra posição. ex: _ a _ a _'
+)
+print('Lista com maiuscula, tem a letra naquela posição. ex: A _ _ _ A')
+print('***digite sempre em minusculo e sem acentos.***')
+print("A palavra tem", len(palavra_certa), "letras")
+print('')
+
+# Um loop para rodar o jogo
+while tentativas > 0:
+  print('vc tem', tentativas, 'tentativas')
+  chute = input("digite uma palavra: ")
+#nesse bloco ele testa se o chute tem o mesmo tamanho da palavra certa
+  if len(chute) != len(palavra_certa):      
+    print("Sua palavra deve ter ", len(palavra_certa), " letras")
+    continue
+#caso o tamanho seja igual, o jogo continua
+  else:
+    for x in range(len(palavra_certa)):
+# Esse bloco é meio confuso, mas ele testa se p indice x palavra vazia é minuscula e se o indice x do chute não esta no indice x da palavra certa
+# Caso a palavra vazia esteja minuscula ou o chute estiver diferente da palavra certa, então esse indice vai receber um " ", ficando um espaço vago
+      if palavra_vazia[x] != palavra_certa_maiuscula[x] and chute[
+          x] not in palavra_certa[x]:
+        palavra_vazia[x] = palavra_vazia_2
+# Esse segundo testa se tem alguma letra do chute esta na palavra certa e se a vazia não esta maiuscula
+# Assim o indice x de chute so vai sobreescrever o indice x de palavra vazia se não tiver letra maiuscula e se estiver na posição errada (ou certa, mas abaixo eu acerto isso)
+      if chute[x] in palavra_certa and palavra_vazia[
+          x] not in palavra_certa_maiuscula[x]:
+        palavra_vazia[x] = chute[x]
+# Por fim eu testo se tem uma letra na posição certa tanto no chute tanto na palavra vazia, caso sim, ela fica maiuscula, assim ela nunca vai ser sobreposta por nada alem da propria letra maiuscula
+      if chute[x] in palavra_certa[x] or palavra_vazia[x] in palavra_certa[x]:
+        palavra_vazia[x] = palavra_certa_maiuscula[x]
+# Aqui testa se vc ganhou
+    if chute == palavra_certa:
+      print(palavra_certa_maiuscula, 'era a palavra certa, parabens!')
+      tentativas = -10
+      break
+# E por fim reduz suas tentativas e mostra o progresso da sua palavra
+  tentativas = tentativas - 1
+  print(palavra_vazia)
+  if tentativas == 0:
+    print('Você perdeu!')
