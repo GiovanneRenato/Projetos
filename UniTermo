@@ -37,7 +37,7 @@ while loop == 1:
   if a == b:
     print('ACERTOU!!! A PALAVRA ERA ', b)
     loop=0
-    else:
+  else:
         print(c)
 # ============================================================
 # Na terça seguinte, eu tive aula de python na faculdade novamente, então eu mostrei esse meu projeto para o meu professo
